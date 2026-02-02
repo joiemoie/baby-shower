@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baby Shower - Joseph Alexander Liba</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div id="background-elements"></div>
+    
+    <main class="card">
+        <div class="bear-icon-container">
+            <!-- Safari Hat Bear Icon -->
+            <svg class="bear-icon" viewBox="0 0 512 512" width="100" height="100" fill="currentColor">
+                 <!-- Hat -->
+                 <path fill="#8D6E63" d="M120,160 L392,160 C405,160 415,150 415,138 C415,126 405,116 392,116 L350,116 L330,80 C320,60 300,50 256,50 C212,50 192,60 182,80 L162,116 L120,116 C107,116 97,126 97,138 C97,150 107,160 120,160 Z"/>
+                 <!-- Face (Existing Bear) -->
+                <path d="M256,192c-56.1,0-106.8,24.8-141.2,63.8C98.9,235.5,84.5,216.9,78.3,192c-9.6-38.4,2.9-79.6,30.3-107s68.6-40,107-30.3c15.8,4,30.2,11.4,42.5,21.2c11.6-9.2,25.1-16.2,39.9-20.1c38.4-9.6,79.6,2.9,107,30.3s40,68.6,30.3,107c-6.2,24.9-20.6,43.5-36.5,63.8C362.8,216.8,312.1,192,256,192z M256,480c-79.5,0-144-64.5-144-144s64.5-144,144-144s144,64.5,144,144S335.5,480,256,480z M192,312c-8.8,0-16,7.2-16,16s7.2,16,16,16s16-7.2,16-16S200.8,312,192,312z M320,312c-8.8,0-16,7.2-16,16s7.2,16,16,16s16-7.2,16-16S328.8,312,320,312z M256,360c-26.5,0-48,21.5-48,48s21.5,48,48,48s48-21.5,48-48S282.5,360,256,360z"/>
+            </svg>
+        </div>
+
+        <header>
+            <h2 class="fade-in delay-1">Join us for a Safari Adventure</h2>
+            <h1 class="baby-name fade-in delay-2">Joseph Alexander Liba</h1>
+            <p class="subtitle fade-in delay-3">Honoring the parents-to-be</p>
+            <h3 class="parents-name fade-in delay-3">Mariana & Joseph Liba</h3>
+        </header>
+
+        <section class="details fade-in delay-4">
+            <div class="detail-item">
+                <i class="fa-regular fa-calendar"></i>
+                <p>Saturday, Feb 21st, 2026</p>
+            </div>
+            <div class="detail-item">
+                <i class="fa-regular fa-clock"></i>
+                <p>2:00 PM - 5:00 PM</p>
+            </div>
+            <div class="detail-item">
+                <i class="fa-solid fa-location-dot"></i>
+                <p>4200 Cheeney St<br>Santa Clara, CA 95054</p>
+            </div>
+        </section>
+
+        <section class="rsvp fade-in delay-5">
+            <button id="rsvp-btn" class="primary-btn">RSVP Now</button>
+            <p class="registry-link"><a href="#">View Registry</a></p>
+        </section>
+    </main>
+
+    <!-- Safari Scene Footer -->
+    <div class="safari-scene">
+        <div class="grass-layer back-grass"></div>
+        <div class="running-bear-wrapper">
+            <svg class="running-bear" viewBox="0 0 100 60" width="100" height="60">
+                <!-- Simple Walking Bear Silhouette -->
+                 <path fill="#5D4037" d="M85,30 C88,25 92,20 95,20 C98,20 100,22 100,25 C100,28 98,30 95,32 L95,35 C95,40 92,45 88,48 L88,58 C88,60 85,60 85,58 L85,50 L75,50 L75,58 C75,60 72,60 72,58 L72,45 L40,45 L40,58 C40,60 37,60 37,58 L37,50 L27,50 L27,58 C27,60 24,60 24,58 L24,40 C20,40 10,35 10,25 C10,15 25,10 40,15 C45,10 50,5 60,10 C65,15 70,20 85,30 Z" />
+            </svg>
+        </div>
+        <div class="grass-layer front-grass"></div>
+    </div>
+
+    <div id="rsvp-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Will you be joining us?</h2>
+            <form id="rsvp-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="number" placeholder="Number of Guests" min="1" max="5" required>
+                <div class="radio-group">
+                    <label><input type="radio" name="attending" value="yes" checked> Joyfully Accept</label>
+                    <label><input type="radio" name="attending" value="no"> Regretfully Decline</label>
+                </div>
+                <button type="submit" class="primary-btn">Send RSVP</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
