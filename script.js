@@ -1,73 +1,48 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Generate Leaves
-    const backgroundElements = document.getElementById('background-elements');
-    const leafCount = 30;
-    const colors = ['#9CAF88', '#7A8B69', '#C4D7B2']; // Different sage shades
-
-    for (let i = 0; i < leafCount; i++) {
-        const leaf = document.createElement('i');
-        leaf.classList.add('fa-solid', 'fa-leaf', 'leaf');
-        
-        const startX = Math.random() * 100;
-        const size = Math.random() * 20 + 15; 
-        const fallDuration = Math.random() * 10 + 10; 
-        const swayDuration = Math.random() * 3 + 2; 
-        const delay = Math.random() * -20; 
-
-        const color = colors[Math.floor(Math.random() * colors.length)];
-
-        leaf.style.left = `${startX}%`;
-        leaf.style.fontSize = `${size}px`;
-        leaf.style.color = color;
-        leaf.style.animationDuration = `${fallDuration}s, ${swayDuration}s`;
-        leaf.style.animationDelay = `${delay}s, 0s`;
-        leaf.style.opacity = Math.random() * 0.4 + 0.2;
-
-        backgroundElements.appendChild(leaf);
-    }
-
-    // RSVP Modal Logic
     const rsvpBtn = document.getElementById('rsvp-btn');
     const modal = document.getElementById('rsvp-modal');
     const closeBtn = document.querySelector('.close-btn');
+    const goingOption = document.getElementById('going');
+    const maybeOption = document.getElementById('maybe');
+    const notGoingOption = document.getElementById('not-going');
     const rsvpForm = document.getElementById('rsvp-form');
 
     rsvpBtn.addEventListener('click', () => {
-        modal.classList.remove('hidden');
-        setTimeout(() => {
-            modal.classList.add('visible');
-        }, 10);
+        modal.style.display = 'flex';
     });
 
-    const closeModal = () => {
-        modal.classList.remove('visible');
-        setTimeout(() => {
-            modal.classList.add('hidden');
-        }, 300);
-    };
+    closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+        rsvpForm.classList.add('hidden');
+    });
 
-    closeBtn.addEventListener('click', closeModal);
-
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            closeModal();
+    window.addEventListener('click', (event) => {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+            rsvpForm.classList.add('hidden');
         }
     });
 
-    rsvpForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const btn = rsvpForm.querySelector('button');
-        const originalText = btn.innerText;
-        
-        btn.innerText = 'Sent!';
-        btn.style.background = '#9CAF88';
-        
-        setTimeout(() => {
-            closeModal();
-            btn.innerText = originalText;
-            btn.style.background = '';
-            rsvpForm.reset();
-            alert("Thank you for RSVPing! We're excited for the safari adventure.");
-        }, 1000);
+    goingOption.addEventListener('click', () => {
+        rsvpForm.classList.remove('hidden');
+    });
+
+    maybeOption.addEventListener('click', () => {
+        alert('We hope to see you there!');
+        modal.style.display = 'none';
+    });
+
+    notGoingOption.addEventListener('click', () => {
+        alert('Sorry you can\'t make it!');
+        modal.style.display = 'none';
+    });
+
+    rsvpForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const name = document.getElementById('name').value;
+        alert(`Thanks for RSVPing, ${name}! We've received your details.`);
+        modal.style.display = 'none';
+        rsvpForm.classList.add('hidden');
+        rsvpForm.querySelector('form').reset();
     });
 });
