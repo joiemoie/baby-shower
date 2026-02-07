@@ -10,35 +10,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const rsvpForm = document.getElementById('rsvp-form');
     const cloudsContainer = document.querySelector('.clouds');
 
-    function createCloud() {
+    function createCloud(index, totalClouds) {
         const cloud = document.createElement('img');
         cloud.src = 'clouds.png';
         cloud.alt = 'cloud';
         cloud.classList.add('cloud');
 
-        // Randomize properties
-        cloud.style.top = Math.random() * 100 + 'vh';
-        cloud.style.width = (Math.random() * 20 + 40) + 'vw'; // 40vw to 60vw
-        cloud.style.left = Math.random() * 200 - 100 + 'vw'; // Start from -100vw to 100vw (wider range)
-        cloud.style.opacity = Math.random() * 0.4 + 0.3; // 0.3 to 0.7 for transparency (more visible)
+        // Distribute vertically
+        const sectionHeight = 100 / totalClouds;
+        const randomOffset = Math.random() * sectionHeight;
+        cloud.style.top = (index * sectionHeight + randomOffset) + 'vh';
 
-        // Randomize animation duration and delay for slower movement
-        const duration = Math.random() * 100 + 100; // 100s to 200s
+        cloud.style.width = (Math.random() * 20 + 30) + 'vw'; // slightly smaller for better fit
+        
+        // Start off-screen left
+        cloud.style.left = '-50vw'; 
+        
+        // Randomize opacity
+        cloud.style.opacity = Math.random() * 0.4 + 0.3; 
+
+        // Slower movement
+        const duration = Math.random() * 50 + 80; // 80s to 130s
         cloud.style.animationDuration = duration + 's';
-        cloud.style.animationDelay = Math.random() * -duration + 's'; // Start at various points in animation cycle
+        
+        // Negative delay to scatter across screen
+        cloud.style.animationDelay = '-' + (Math.random() * duration) + 's';
 
         cloudsContainer.appendChild(cloud);
-
-        // Remove cloud when it's off-screen and create a new one
-        cloud.addEventListener('animationiteration', () => {
-            cloud.remove();
-            createCloud();
-        });
     }
 
     // Initial cloud generation
-    for (let i = 0; i < 15; i++) {
-        createCloud();
+    const totalClouds = 15;
+    for (let i = 0; i < totalClouds; i++) {
+        createCloud(i, totalClouds);
     }
 
     function openModal() {
@@ -47,15 +51,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function closeModal() {
-        modalContent.style.animation = 'scaleDown 0.4s ease-out forwards';
-        modal.style.animation = 'fadeOut 0.4s ease-out forwards';
-        setTimeout(() => {
-            modal.style.display = 'none';
-            rsvpForm.classList.add('hidden');
-            modalContent.style.animation = '';
-            modal.style.animation = '';
-            rsvpOptions.forEach(opt => opt.classList.remove('selected'));
-        }, 400);
+        modal.style.display = 'none';
+        rsvpForm.classList.add('hidden');
+        rsvpOptions.forEach(opt => opt.classList.remove('selected'));
     }
 
     rsvpBtn.addEventListener('click', openModal);
@@ -102,16 +100,43 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Parallax effect on mouse move
+    const invitation = document.querySelector('.invitation');
+    
     document.addEventListener('mousemove', (e) => {
         const { clientX, clientY } = e;
-        const x = (clientX / window.innerWidth) * 2 - 1;
-        const y = (clientY / window.innerHeight) * 2 - 1;
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+        
+        // Calculate rotation based on cursor position relative to center
+        // Limit rotation to ~5 degrees
+        const rotateY = ((clientX - centerX) / centerX) * 5; 
+        const rotateX = -((clientY - centerY) / centerY) * 5; // Invert Y for natural feel
 
-        // Apply to bear
+        // Update CSS variables for reflection (relative to card)
+        const rect = invitation.getBoundingClientRect();
+        const x = clientX - rect.left;
+        const y = clientY - rect.top;
+        
+        invitation.style.setProperty('--x', `${x}px`);
+        invitation.style.setProperty('--y', `${y}px`);
+
+        // Apply 3D rotation
+        invitation.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+        // Apply to bear (existing parallax)
+        const xNorm = (clientX / window.innerWidth) * 2 - 1;
+        const yNorm = (clientY / window.innerHeight) * 2 - 1;
         const bear = document.querySelector('.bear');
-        const bearSpeed = 5;
-        const bearXOffset = x * bearSpeed;
-        const bearYOffset = y * bearSpeed;
+        const bearSpeed = 15; // Increased speed for visibility
+        const bearXOffset = xNorm * bearSpeed;
+        const bearYOffset = yNorm * bearSpeed;
         bear.style.transform = `translateX(${bearXOffset}px) translateY(${bearYOffset}px)`;
+
+        // Apply to clouds (background parallax)
+        const clouds = document.querySelector('.clouds');
+        const cloudsSpeed = 10;
+        const cloudsXOffset = -xNorm * cloudsSpeed;
+        const cloudsYOffset = -yNorm * cloudsSpeed;
+        clouds.style.transform = `translateX(${cloudsXOffset}px) translateY(${cloudsYOffset}px)`;
     });
 });

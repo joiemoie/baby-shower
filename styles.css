@@ -62,24 +62,51 @@ body {
 
 
 .invitation {
-    background-color: #fdfbf7;
-    background-image: radial-gradient(circle, #fdfbf7 20%, #f3ebd7 100%);
-    border-radius: 5px; /* Sharper corners for paper look, or keep rounded? User said "card", let's keep it slightly rounded but less "app-like" */
-    border-radius: 15px;
+    /* Papyrus / Parchment Texture */
+    background-color: #f4ecd8;
+    background-image: 
+        /* Subtle horizontal fibers to simulate papyrus */
+        repeating-linear-gradient(to bottom, 
+            transparent 0px, 
+            transparent 2px, 
+            rgba(160, 130, 80, 0.05) 3px, 
+            transparent 4px
+        ),
+        radial-gradient(circle, #fdf6e3 20%, #f4ecd8 80%, #e8dcb9 100%);
+    background-size: 100% 100%;
+    
+    border-radius: 2px; /* Papyrus often has rougher edges, but we'll keep it slight */
     box-shadow: 
-        0 1px 2px rgba(0,0,0,0.07), 
-        0 2px 4px rgba(0,0,0,0.07), 
-        0 4px 8px rgba(0,0,0,0.07), 
-        0 8px 16px rgba(0,0,0,0.07),
-        0 16px 32px rgba(0,0,0,0.07), 
-        0 32px 64px rgba(0,0,0,0.07); /* Deep elegant shadow */
+        0 1px 2px rgba(0,0,0,0.1), 
+        0 5px 15px rgba(0,0,0,0.15), 
+        0 20px 40px rgba(0,0,0,0.2); /* Deep shadow */
     padding: 60px 40px;
     text-align: center;
     max-width: 550px;
     width: 100%;
     position: relative;
     z-index: 1;
-    border: 1px solid #e6dcc0;
+    border: 1px solid #d1c4a5;
+    overflow: hidden; /* Added to contain reflection */
+    
+    /* 3D Transform setup */
+    transform-style: preserve-3d;
+    /* transition: transform 0.1s ease-out; Removed to prevent lag on mousemove */
+}
+
+/* Spotlight Reflection Overlay */
+.reflection-overlay {
+    position: absolute;
+    top: 0; 
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Stronger reflection */
+    background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 50%);
+    opacity: 1; /* Always visible for dynamic effect */
+    pointer-events: none;
+    z-index: 5;
+    mix-blend-mode: soft-light; /* Soft light for a nice sheen */
 }
 
 /* Bracket styling */
@@ -117,17 +144,41 @@ h1 {
     margin-bottom: 15px;
     text-transform: uppercase;
     
-    /* Gold Foil Text Effect */
-    background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+    /* Dual Layer Shimmer: Base Animation + Interactive Spotlight */
+    background: 
+        /* Interactive Spotlight Layer */
+        radial-gradient(
+            circle at calc(var(--x, 50%) - 40px) calc(var(--y, 50%) - 60px), 
+            rgba(255, 248, 225, 0.8) 0%, 
+            rgba(230, 194, 136, 0.4) 15%, 
+            transparent 40%
+        ),
+        /* Continuous Base Shimmer Layer */
+        linear-gradient(110deg, #7a4c20 20%, #9b622c 40%, #e6c288 50%, #9b622c 60%, #7a4c20 80%);
+    
+    background-size: 100% 100%, 200% auto;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    text-shadow: 0px 1px 1px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+    
+    text-shadow: 0px 1px 2px rgba(0,0,0,0.1);
+    animation: continuousShine 6s linear infinite;
+}
+
+@keyframes continuousShine {
+    0% { background-position: 0% 0%, 0% center; }
+    100% { background-position: 0% 0%, 200% center; }
+}
+
+@keyframes shine {
+    to {
+        background-position: 200% center;
+    }
 }
 
 .intro-text {
     margin-bottom: 30px;
-    color: #5a4a42; /* Darker, softer brown/grey for text on parchment */
+    color: #9b622c; /* Updated to bronze */
     font-family: 'Quicksand', sans-serif;
     font-weight: 700;
 }
@@ -155,7 +206,7 @@ h1 {
 h2 {
     font-family: 'Quicksand', sans-serif;
     font-weight: 300;
-    color: #5a4a42;
+    color: #9b622c; /* Updated to bronze */
     margin-bottom: 5px;
 }
 
@@ -165,7 +216,7 @@ h3 {
 
 .details {
     margin-bottom: 40px;
-    color: #5a4a42;
+    color: #9b622c; /* Updated to bronze */
 }
 
 .details p {
@@ -174,7 +225,7 @@ h3 {
 }
 
 .details strong {
-    color: #8c6a4a;
+    color: #7a4c20; /* Slightly darker bronze for emphasis */
 }
 
 #rsvp-btn {
@@ -229,7 +280,6 @@ h3 {
     text-align: center;
     position: relative;
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    transform: scale(0.9);
     animation: scaleUp 0.4s ease-out forwards;
 }
 
