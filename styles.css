@@ -104,13 +104,19 @@ h1 {
     font-family: serif; /* New minimalist font */
     color: #9b622c;
     font-size: 2.8em; /* Slightly larger title */
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     text-transform: uppercase;
 }
 
+.intro-text {
+    margin-bottom: 30px;
+    color: #AF7846; /* Lighter shade of brown */
+    font-family: serif;
+}
+
 .bear {
-    width: 180px; /* Slightly larger bear */
-    margin-bottom: 20px;
+    width: 220px; /* Slightly larger bear */
+    margin-bottom: 10px;
     animation: float 3s ease-in-out infinite;
 }
 
