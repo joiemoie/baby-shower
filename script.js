@@ -121,7 +121,11 @@ document.addEventListener('DOMContentLoaded', () => {
         invitation.style.setProperty('--y', `${y}px`);
 
         // Apply 3D rotation
-        invitation.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        if (modal.style.display === 'flex') {
+            invitation.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+        } else {
+            invitation.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        }
 
         // Apply to bear (existing parallax)
         const xNorm = (clientX / window.innerWidth) * 2 - 1;
@@ -138,5 +142,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const cloudsXOffset = -xNorm * cloudsSpeed;
         const cloudsYOffset = -yNorm * cloudsSpeed;
         clouds.style.transform = `translateX(${cloudsXOffset}px) translateY(${cloudsYOffset}px)`;
+
+        // Sun Eyes Tracking
+        const pupils = document.querySelectorAll('.pupil');
+        pupils.forEach((pupil) => {
+            const eye = pupil.parentElement;
+            const eyeRect = eye.getBoundingClientRect();
+            const eyeCenterX = eyeRect.left + eyeRect.width / 2;
+            const eyeCenterY = eyeRect.top + eyeRect.height / 2;
+
+            const angle = Math.atan2(clientY - eyeCenterY, clientX - eyeCenterX);
+            const maxDistance = eyeRect.width / 4;
+            // Calculate distance but clamp it to keep pupil inside eye
+            const rawDistance = Math.hypot(clientX - eyeCenterX, clientY - eyeCenterY);
+            const distance = Math.min(maxDistance, rawDistance);
+            
+            const pupilX = Math.cos(angle) * distance;
+            const pupilY = Math.sin(angle) * distance;
+            
+            pupil.style.transform = `translate(calc(-50% + ${pupilX}px), calc(-50% + ${pupilY}px))`;
+        });
     });
 });
