@@ -62,15 +62,24 @@ body {
 
 
 .invitation {
-    background-color: #ffffff;
-    border-radius: 25px; /* Slightly more rounded edges */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Light shadow */
-    padding: 40px;
+    background-color: #fdfbf7;
+    background-image: radial-gradient(circle, #fdfbf7 20%, #f3ebd7 100%);
+    border-radius: 5px; /* Sharper corners for paper look, or keep rounded? User said "card", let's keep it slightly rounded but less "app-like" */
+    border-radius: 15px;
+    box-shadow: 
+        0 1px 2px rgba(0,0,0,0.07), 
+        0 2px 4px rgba(0,0,0,0.07), 
+        0 4px 8px rgba(0,0,0,0.07), 
+        0 8px 16px rgba(0,0,0,0.07),
+        0 16px 32px rgba(0,0,0,0.07), 
+        0 32px 64px rgba(0,0,0,0.07); /* Deep elegant shadow */
+    padding: 60px 40px;
     text-align: center;
-    max-width: 550px; /* Slightly wider */
+    max-width: 550px;
     width: 100%;
     position: relative;
     z-index: 1;
+    border: 1px solid #e6dcc0;
 }
 
 /* Bracket styling */
@@ -78,50 +87,60 @@ body {
 .invitation::after {
     content: '';
     position: absolute;
-    border: 3px solid #9b622c; /* Color and thickness of the brackets */
-    width: 25px; /* Length of the bracket arms */
-    height: 25px; /* Length of the bracket arms */
-    z-index: 2; /* Ensure brackets are above the card content if needed */
+    width: 40px;
+    height: 40px;
+    border: 4px solid #C5A059; /* Fallback */
+    border-color: #d4af37;
+    z-index: 2;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
 /* Top-left bracket */
 .invitation::before {
-    top: -3px;
-    left: -3px;
+    top: 15px;
+    left: 15px;
     border-right: none;
     border-bottom: none;
 }
 
 /* Bottom-right bracket */
 .invitation::after {
-    bottom: -3px;
-    right: -3px;
+    bottom: 15px;
+    right: 15px;
     border-left: none;
     border-top: none;
 }
 
 h1 {
-    font-family: 'Fredoka One', cursive; /* New minimalist font */
-    color: #9b622c;
-    font-size: 2.8em; /* Slightly larger title */
-    margin-bottom: 5px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 3.2em;
+    margin-bottom: 15px;
     text-transform: uppercase;
+    
+    /* Gold Foil Text Effect */
+    background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0px 1px 1px rgba(0,0,0,0.1); /* Subtle shadow for depth */
 }
 
 .intro-text {
     margin-bottom: 30px;
-    color: #AF7846; /* Lighter shade of brown */
+    color: #5a4a42; /* Darker, softer brown/grey for text on parchment */
     font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
 }
 
 .bear-container {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     animation: float 3s ease-in-out infinite;
 }
 
 .bear {
-    width: 220px; /* Slightly larger bear */
+    width: 220px;
     transition: transform 0.2s ease-out;
+    filter: sepia(0.2); /* Slight vintage warmth */
 }
 
 @keyframes float {
@@ -129,14 +148,14 @@ h1 {
         transform: translateY(0);
     }
     50% {
-        transform: translateY(-20px);
+        transform: translateY(-15px);
     }
 }
 
 h2 {
     font-family: 'Quicksand', sans-serif;
     font-weight: 300;
-    color: #333;
+    color: #5a4a42;
     margin-bottom: 5px;
 }
 
@@ -145,27 +164,38 @@ h3 {
 }
 
 .details {
-    margin-bottom: 30px;
+    margin-bottom: 40px;
+    color: #5a4a42;
 }
 
 .details p {
-    margin: 5px 0;
-    font-size: 1.1em;
+    margin: 8px 0;
+    font-size: 1.2em;
+}
+
+.details strong {
+    color: #8c6a4a;
 }
 
 #rsvp-btn {
-    background-color: #9b622c;
-    color: white;
+    background: linear-gradient(to bottom, #d4af37, #b38728);
+    color: #fff;
     border: none;
-    border-radius: 25px;
-    padding: 15px 30px;
-    font-size: 1.2em;
+    border-radius: 50px; /* Pill shape */
+    padding: 16px 40px;
+    font-size: 1.1em;
+    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 #rsvp-btn:hover {
-    background-color: #8a5728;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    background: linear-gradient(to bottom, #deb841, #bf902b);
 }
 
 .modal {
@@ -188,10 +218,11 @@ h3 {
 }
 
 .modal-content {
-    background-color: #fff;
+    background-color: #fdfbf7;
+    background-image: radial-gradient(circle, #fdfbf7 20%, #f3ebd7 100%);
     margin: auto;
     padding: 30px;
-    border: none;
+    border: 1px solid #e6dcc0;
     border-radius: 20px;
     width: 90%;
     max-width: 500px;
@@ -246,13 +277,13 @@ h3 {
 }
 
 .option:hover {
-    background-color: #f0f8ff;
+    background-color: #f3ebd7;
     transform: translateY(-5px);
 }
 
 .option.selected {
-    background-color: #e0f0ff;
-    border: 2px solid #87CEEB;
+    background-color: #faeec7;
+    border: 2px solid #d4af37;
 }
 
 .option span {
@@ -301,19 +332,24 @@ h3 {
 
 #rsvp-form button {
     margin-top: 25px;
-    background-color: #9b622c;
+    background: linear-gradient(to bottom, #d4af37, #b38728);
     color: white;
     border: none;
-    border-radius: 25px;
-    padding: 15px 30px;
-    font-size: 1.2em;
+    border-radius: 50px;
+    padding: 16px 40px;
+    font-size: 1.1em;
+    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 #rsvp-form button:hover {
-    background-color: #8a5728;
     transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    background: linear-gradient(to bottom, #deb841, #bf902b);
 }
 
 
