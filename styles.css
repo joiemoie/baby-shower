@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Montserrat:wght@700&family=Quicksand:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Montserrat:wght@700&family=Quicksand:wght@400;700&family=Roboto:wght@300;700&display=swap');
 
 body {
     font-family: 'Quicksand', sans-serif;
@@ -32,94 +32,32 @@ body {
     z-index: -1;
 }
 
-.cloud1, .cloud2, .cloud3, .cloud4, .cloud5, .cloud6, .cloud7, .cloud8, .cloud9 {
+.cloud {
     position: absolute;
     animation: moveClouds linear infinite;
 }
 
-.cloud1 {
-    width: 200px;
-    top: 10%;
-    left: -250px;
-    animation-duration: 50s;
-    opacity: 0.6;
-}
 
-.cloud2 {
-    width: 300px;
-    top: 30%;
-    left: -350px;
-    animation-delay: 8s;
-    animation-duration: 60s;
-    opacity: 0.4;
-}
 
-.cloud3 {
-    width: 150px;
-    top: 50%;
-    left: -200px;
-    animation-delay: 15s;
-    animation-duration: 45s;
-    opacity: 0.7;
-}
 
-.cloud4 {
-    width: 250px;
-    top: 60%;
-    left: -300px;
-    animation-delay: 20s;
-    animation-duration: 70s;
-    opacity: 0.5;
-}
 
-.cloud5 {
-    width: 180px;
-    top: 20%;
-    left: -220px;
-    animation-delay: 25s;
-    animation-duration: 55s;
-    opacity: 0.6;
-}
 
-.cloud6 {
-    width: 320px;
-    top: 75%;
-    left: -400px;
-    animation-delay: 30s;
-    animation-duration: 80s;
-    opacity: 0.4;
-}
 
-.cloud7 {
-    width: 220px;
-    top: 5%;
-    left: -200px;
-    animation-delay: 3s;
-    animation-duration: 65s;
-    opacity: 0.5;
-}
 
-.cloud8 {
-    width: 280px;
-    top: 40%;
-    left: -300px;
-    animation-delay: 12s;
-    animation-duration: 75s;
-    opacity: 0.6;
-}
 
-.cloud9 {
-    width: 190px;
-    top: 85%;
-    left: -250px;
-    animation-delay: 22s;
-    animation-duration: 58s;
-    opacity: 0.7;
-}
+
+
+
+
+
+
+
+
+
 
 @keyframes moveClouds {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(150vw); }
+    0% { transform: translateX(0); }
+    100% { transform: translateX(200vw); }
 }
 
 
@@ -135,11 +73,39 @@ body {
     z-index: 1;
 }
 
+/* Bracket styling */
+.invitation::before,
+.invitation::after {
+    content: '';
+    position: absolute;
+    border: 3px solid #9b622c; /* Color and thickness of the brackets */
+    width: 25px; /* Length of the bracket arms */
+    height: 25px; /* Length of the bracket arms */
+    z-index: 2; /* Ensure brackets are above the card content if needed */
+}
+
+/* Top-left bracket */
+.invitation::before {
+    top: -3px;
+    left: -3px;
+    border-right: none;
+    border-bottom: none;
+}
+
+/* Bottom-right bracket */
+.invitation::after {
+    bottom: -3px;
+    right: -3px;
+    border-left: none;
+    border-top: none;
+}
+
 h1 {
-    font-family: 'Montserrat', sans-serif; /* New minimalist font */
-    color: #A0522D;
+    font-family: serif; /* New minimalist font */
+    color: #9b622c;
     font-size: 2.8em; /* Slightly larger title */
     margin-bottom: 20px;
+    text-transform: uppercase;
 }
 
 .bear {
@@ -158,8 +124,10 @@ h1 {
 }
 
 h2 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
     color: #333;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 .details {
@@ -172,7 +140,7 @@ h2 {
 }
 
 #rsvp-btn {
-    background-color: #D2B48C;
+    background-color: #9b622c;
     color: white;
     border: none;
     border-radius: 25px;
@@ -183,7 +151,7 @@ h2 {
 }
 
 #rsvp-btn:hover {
-    background-color: #C1A37C;
+    background-color: #8a5728;
 }
 
 .modal {
