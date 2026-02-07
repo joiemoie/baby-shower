@@ -101,7 +101,7 @@ body {
 }
 
 h1 {
-    font-family: serif; /* New minimalist font */
+    font-family: 'Fredoka One', cursive; /* New minimalist font */
     color: #9b622c;
     font-size: 2.8em; /* Slightly larger title */
     margin-bottom: 5px;
@@ -111,13 +111,17 @@ h1 {
 .intro-text {
     margin-bottom: 30px;
     color: #AF7846; /* Lighter shade of brown */
-    font-family: serif;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.bear-container {
+    margin-bottom: 10px;
+    animation: float 3s ease-in-out infinite;
 }
 
 .bear {
     width: 220px; /* Slightly larger bear */
-    margin-bottom: 10px;
-    animation: float 3s ease-in-out infinite;
+    transition: transform 0.2s ease-out;
 }
 
 @keyframes float {
@@ -130,10 +134,14 @@ h1 {
 }
 
 h2 {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Quicksand', sans-serif;
     font-weight: 300;
     color: #333;
     margin-bottom: 5px;
+}
+
+h3 {
+    font-family: 'Quicksand', sans-serif;
 }
 
 .details {
@@ -169,57 +177,93 @@ h2 {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0,0,0,0.5); /* Darker overlay */
     justify-content: center;
     align-items: center;
+    animation: fadeIn 0.4s ease-out;
+}
+
+.modal.hidden {
+    display: none;
 }
 
 .modal-content {
-    background-color: #fefefe;
+    background-color: #fff;
     margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    border-radius: 10px;
-    width: 80%;
+    padding: 30px;
+    border: none;
+    border-radius: 20px;
+    width: 90%;
     max-width: 500px;
     text-align: center;
     position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transform: scale(0.9);
+    animation: scaleUp 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
 }
 
 .close-btn {
     color: #aaa;
-    float: right;
-    font-size: 28px;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 35px;
     font-weight: bold;
+    transition: transform 0.2s, color 0.2s;
 }
 
 .close-btn:hover,
 .close-btn:focus {
-    color: black;
+    color: #333;
     text-decoration: none;
     cursor: pointer;
+    transform: rotate(90deg);
 }
 
 .rsvp-options {
     display: flex;
     justify-content: space-around;
-    margin: 20px 0;
+    margin: 30px 0;
 }
 
 .option {
     cursor: pointer;
     text-align: center;
+    padding: 15px;
+    border-radius: 15px;
+    transition: background-color 0.3s, transform 0.3s;
+    width: 100px;
+}
+
+.option:hover {
+    background-color: #f0f8ff;
+    transform: translateY(-5px);
+}
+
+.option.selected {
+    background-color: #e0f0ff;
+    border: 2px solid #87CEEB;
 }
 
 .option span {
-    font-size: 3em;
+    font-size: 3.5em;
     display: block;
     margin-bottom: 10px;
     transition: transform 0.3s;
 }
 
 .option:hover span {
-    transform: scale(1.2);
+    transform: scale(1.1);
 }
 
 .hidden {
@@ -230,35 +274,48 @@ h2 {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 20px;
 }
 
 #rsvp-form label {
-    margin-top: 10px;
+    margin-top: 15px;
+    font-size: 1.1em;
+    color: #555;
 }
 
 #rsvp-form input {
-    width: 80%;
-    padding: 10px;
-    margin-top: 5px;
-    border-radius: 5px;
+    width: 90%;
+    padding: 12px;
+    margin-top: 8px;
+    border-radius: 10px;
     border: 1px solid #ccc;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1em;
+}
+
+#rsvp-form input:focus {
+    outline: none;
+    border-color: #9b622c;
+    box-shadow: 0 0 5px rgba(155, 98, 44, 0.3);
 }
 
 #rsvp-form button {
-    margin-top: 20px;
-    background-color: #A0522D;
+    margin-top: 25px;
+    background-color: #9b622c;
     color: white;
     border: none;
     border-radius: 25px;
     padding: 15px 30px;
-    font-size: 1em;
+    font-size: 1.2em;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 #rsvp-form button:hover {
-    background-color: #80422D;
+    background-color: #8a5728;
+    transform: translateY(-2px);
 }
+
 
 @media (max-width: 600px) {
     .invitation {
@@ -281,4 +338,44 @@ h2 {
     .option {
         margin-bottom: 20px;
     }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate h1,
+.animate .intro-text,
+.animate .bear,
+.animate .details,
+.animate #rsvp-btn {
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0;
+}
+
+.animate h1 {
+    animation-delay: 0.2s;
+}
+
+.animate .intro-text {
+    animation-delay: 0.4s;
+}
+
+.animate .bear {
+    animation-delay: 0.6s;
+}
+
+.animate .details {
+    animation-delay: 0.8s;
+}
+
+.animate #rsvp-btn {
+    animation-delay: 1s;
 }

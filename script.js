@@ -1,7 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     const rsvpBtn = document.getElementById('rsvp-btn');
     const modal = document.getElementById('rsvp-modal');
+    const modalContent = document.querySelector('.modal-content');
     const closeBtn = document.querySelector('.close-btn');
+    const rsvpOptions = document.querySelectorAll('.option');
     const goingOption = document.getElementById('going');
     const maybeOption = document.getElementById('maybe');
     const notGoingOption = document.getElementById('not-going');
@@ -39,21 +41,38 @@ document.addEventListener('DOMContentLoaded', () => {
         createCloud();
     }
 
-
-    rsvpBtn.addEventListener('click', () => {
+    function openModal() {
+        modal.classList.remove('hidden');
         modal.style.display = 'flex';
-    });
+    }
 
-    closeBtn.addEventListener('click', () => {
-        modal.style.display = 'none';
-        rsvpForm.classList.add('hidden');
-    });
+    function closeModal() {
+        modalContent.style.animation = 'scaleDown 0.4s ease-out forwards';
+        modal.style.animation = 'fadeOut 0.4s ease-out forwards';
+        setTimeout(() => {
+            modal.style.display = 'none';
+            rsvpForm.classList.add('hidden');
+            modalContent.style.animation = '';
+            modal.style.animation = '';
+            rsvpOptions.forEach(opt => opt.classList.remove('selected'));
+        }, 400);
+    }
+
+    rsvpBtn.addEventListener('click', openModal);
+
+    closeBtn.addEventListener('click', closeModal);
 
     window.addEventListener('click', (event) => {
         if (event.target == modal) {
-            modal.style.display = 'none';
-            rsvpForm.classList.add('hidden');
+            closeModal();
         }
+    });
+
+    rsvpOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            rsvpOptions.forEach(opt => opt.classList.remove('selected'));
+            option.classList.add('selected');
+        });
     });
 
     goingOption.addEventListener('click', () => {
@@ -61,21 +80,38 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     maybeOption.addEventListener('click', () => {
-        alert('We hope to see you there!');
-        modal.style.display = 'none';
+        setTimeout(() => {
+            alert('We hope to see you there!');
+            closeModal();
+        }, 300);
     });
 
     notGoingOption.addEventListener('click', () => {
-        alert('Sorry you can\'t make it!');
-        modal.style.display = 'none';
+        setTimeout(() => {
+            alert('Sorry you can\'t make it!');
+            closeModal();
+        }, 300);
     });
 
     rsvpForm.addEventListener('submit', (event) => {
         event.preventDefault();
         const name = document.getElementById('name').value;
         alert(`Thanks for RSVPing, ${name}! We've received your details.`);
-        modal.style.display = 'none';
-        rsvpForm.classList.add('hidden');
+        closeModal();
         rsvpForm.querySelector('form').reset();
+    });
+
+    // Parallax effect on mouse move
+    document.addEventListener('mousemove', (e) => {
+        const { clientX, clientY } = e;
+        const x = (clientX / window.innerWidth) * 2 - 1;
+        const y = (clientY / window.innerHeight) * 2 - 1;
+
+        // Apply to bear
+        const bear = document.querySelector('.bear');
+        const bearSpeed = 5;
+        const bearXOffset = x * bearSpeed;
+        const bearYOffset = y * bearSpeed;
+        bear.style.transform = `translateX(${bearXOffset}px) translateY(${bearYOffset}px)`;
     });
 });
