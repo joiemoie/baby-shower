@@ -210,6 +210,78 @@ h3 {
     color: #7a4c20; /* Slightly darker bronze for emphasis */
 }
 
+.address-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 8px 0;
+}
+
+.address-container p {
+    margin: 0;
+}
+
+.copy-btn {
+    background: #f0ede4;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 2px 6px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.copy-btn svg {
+    display: block;
+}
+
+.copy-btn .hidden {
+    display: none;
+}
+
+.copy-btn:hover {
+    background: #e6dcc0;
+    transform: scale(1.1);
+}
+
+.copy-btn.copied {
+    background: #d4af37;
+    color: white;
+    border-color: #b38728;
+}
+
+.calendar-btn {
+    background-color: transparent;
+    color: #7a4c20;
+    border: 2px solid #7a4c20;
+    border-radius: 50px;
+    padding: 10px 25px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 15px;
+    display: inline-block;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.calendar-btn:hover {
+    background-color: #7a4c20;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.calendar-btn:active {
+    transform: translateY(0);
+}
+
 #rsvp-btn {
     background: linear-gradient(to bottom, #d4af37, #b38728);
     color: #fff;
@@ -359,7 +431,8 @@ h3 {
     color: #555;
 }
 
-#rsvp-form input {
+#rsvp-form input,
+#rsvp-form textarea {
     width: 90%;
     padding: 12px;
     margin-top: 8px;
@@ -369,7 +442,13 @@ h3 {
     font-size: 1em;
 }
 
-#rsvp-form input:focus {
+#rsvp-form textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+#rsvp-form input:focus,
+#rsvp-form textarea:focus {
     outline: none;
     border-color: #9b622c;
     box-shadow: 0 0 5px rgba(155, 98, 44, 0.3);
@@ -602,4 +681,134 @@ h3 {
 
 .animate #rsvp-btn {
     animation-delay: 1s;
+}
+
+/* Emoji Popup Styles */
+.emoji-popup {
+    position: fixed;
+    font-size: 4rem;
+    pointer-events: none;
+    z-index: 1000;
+    animation: popupFloat 1.5s ease-out forwards;
+}
+
+@keyframes popupFloat {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+    }
+    50% {
+        transform: translate(-50%, -150%) scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -300%) scale(1);
+        opacity: 0;
+    }
+}
+
+/* Confetti Styles */
+.confetti {
+    position: fixed;
+    width: 6px; /* Slightly wider for visibility */
+    height: 14px; /* Shorter for better 'flutter' look */
+    z-index: 999;
+    pointer-events: none;
+    /* Animation name will be set via JS */
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+#rsvp-confirmation {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 15px;
+}
+
+#confirmation-text {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #7a4c20;
+    margin-bottom: 15px;
+}
+
+.confirmation-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.confirmation-buttons button {
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.2s;
+}
+
+#confirm-yes {
+    background: #e6dcc0;
+    color: #7a4c20;
+    border: 2px solid #d4af37;
+}
+
+#confirm-no {
+    background: linear-gradient(to bottom, #d4af37, #b38728);
+    color: white;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.confirmation-buttons button:active {
+    transform: scale(0.95);
+}
+
+@media (max-width: 600px) {
+    .confirmation-buttons {
+        flex-direction: column;
+    }
+}
+
+/* Success Message Styles */
+#success-message {
+    text-align: center;
+    padding: 30px;
+}
+
+#success-message .success-icon {
+    font-size: 5em;
+    margin-bottom: 20px;
+    animation: popUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#success-message h3 {
+    color: #7a4c20;
+    margin-bottom: 10px;
+}
+
+#success-message p {
+    color: #555;
+    font-size: 1.1em;
+}
+
+@keyframes popUp {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes tumble-1 {
+    0% { transform: translate3d(0, -10vh, 0) rotateX(0) rotateY(0); }
+    100% { transform: translate3d(-25vw, 105vh, 0) rotateX(720deg) rotateY(360deg); }
+}
+
+@keyframes tumble-2 {
+    0% { transform: translate3d(0, -10vh, 0) rotateX(0) rotateY(0); }
+    100% { transform: translate3d(25vw, 105vh, 0) rotateX(360deg) rotateY(720deg); }
+}
+
+@keyframes tumble-3 {
+    0% { transform: translate3d(0, -10vh, 0) rotateX(0) rotateY(0); }
+    50% { transform: translate3d(15vw, 50vh, 0) rotateX(180deg) rotateY(180deg); }
+    100% { transform: translate3d(-15vw, 105vh, 0) rotateX(360deg) rotateY(360deg); }
 }

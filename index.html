@@ -43,7 +43,15 @@
         <div class="details">
             <p>February 21st, 2026</p>
             <p>1:00 PM</p>
-            <p><strong>📍</strong> 4200 Cheenet St, Santa Clara, CA, 95054</p>
+            <div class="address-container">
+                <p><strong>📍</strong> 4200 Cheeney St., Santa Clara, CA, 95054</p>
+                <button id="copy-address" class="copy-btn" title="Copy Address">
+                    <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    <svg class="check-icon hidden" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </button>
+            </div>
+            <button id="calendar-btn" class="calendar-btn">📅 Save to Calendar</button>
+            <a href="https://my.babylist.com/baby-joie-3" target="_blank" id="registry-btn" class="calendar-btn" style="text-decoration: none; display: inline-block;">🎁 Baby Registry</a>
         </div>
         <button id="rsvp-btn">RSVP</button>
     </div>
@@ -67,16 +75,27 @@
                 </div>
             </div>
             <div id="rsvp-form" class="hidden">
-                <h3>So happy you can make it!</h3>
-                <form>
+                <h3 id="form-title">So happy you can make it!</h3>
+                <form name="rsvp" method="POST" data-netlify="true">
+                    <input type="hidden" name="form-name" value="rsvp">
+                    <input type="hidden" id="rsvp-status" name="rsvp-status">
                     <label for="name">Name:</label>
                     <input type="text" id="name" name="name" required>
-                    <label for="phone">Phone Number:</label>
-                    <input type="tel" id="phone" name="phone" required>
-                    <label for="attendees">Number of Attendees:</label>
-                    <input type="number" id="attendees" name="attendees" min="1" required>
+                    <div id="extra-fields">
+                        <label for="attendees">Number of Attendees:</label>
+                        <input type="number" id="attendees" name="attendees" min="1">
+                        <label for="dietary">Dietary Restrictions:</label>
+                        <input type="text" id="dietary" name="dietary" placeholder="e.g. Vegetarian, Nut Allergy">
+                    </div>
+                    <label for="message">Message (Optional):</label>
+                    <textarea id="message" name="message" rows="3" placeholder="Leave a note for the parents-to-be!"></textarea>
                     <button type="submit">Submit</button>
                 </form>
+            </div>
+            <div id="success-message" class="hidden">
+                <div class="success-icon">💌</div>
+                <h3>RSVP Sent!</h3>
+                <p id="success-text">Thanks for letting us know!</p>
             </div>
         </div>
     </div>

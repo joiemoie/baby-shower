@@ -9,6 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const notGoingOption = document.getElementById('not-going');
     const rsvpForm = document.getElementById('rsvp-form');
     const cloudsContainer = document.querySelector('.clouds');
+    const extraFields = document.getElementById('extra-fields');
+    const formTitle = document.getElementById('form-title');
+    let currentSelection = '';
 
     function createCloud(index, totalClouds) {
         const cloud = document.createElement('img');
@@ -54,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.style.display = 'none';
         rsvpForm.classList.add('hidden');
         rsvpOptions.forEach(opt => opt.classList.remove('selected'));
+        rsvpForm.querySelector('form').reset();
     }
 
     rsvpBtn.addEventListener('click', openModal);
@@ -66,6 +70,74 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    function showForm(selection) {
+        currentSelection = selection;
+        rsvpForm.classList.remove('hidden');
+        
+        const attendeesInput = document.getElementById('attendees');
+
+        if (selection === 'going') {
+            formTitle.textContent = "So happy you can make it!";
+            extraFields.classList.remove('hidden');
+            attendeesInput.required = true;
+        } else if (selection === 'maybe') {
+            formTitle.textContent = "We hope you can make it!";
+            extraFields.classList.add('hidden');
+            attendeesInput.required = false;
+        } else {
+            formTitle.textContent = "We will miss you!";
+            extraFields.classList.add('hidden');
+            attendeesInput.required = false;
+        }
+    }
+
+    function showEmojiPopup(emoji, element) {
+        const popup = document.createElement('div');
+        popup.textContent = emoji;
+        popup.classList.add('emoji-popup');
+        
+        const rect = element.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        popup.style.left = `${centerX}px`;
+        popup.style.top = `${centerY}px`;
+        
+        document.body.appendChild(popup);
+        
+        popup.addEventListener('animationend', () => {
+            popup.remove();
+        });
+    }
+
+    function triggerConfetti() {
+        const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+        const confettiCount = 100;
+        const animations = ['tumble-1', 'tumble-2', 'tumble-3'];
+        
+        for (let i = 0; i < confettiCount; i++) {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            // Varied length for "ribbon" look
+            const height = Math.random() * 10 + 10; // 10px to 20px
+            confetti.style.height = height + 'px';
+            
+            // Randomly select one of the 3 tumble animations
+            confetti.style.animationName = animations[Math.floor(Math.random() * animations.length)];
+            confetti.style.animationDuration = Math.random() * 2 + 2.5 + 's'; // 2.5s to 4.5s
+            confetti.style.top = '-50px';
+            
+            document.body.appendChild(confetti);
+            
+            confetti.addEventListener('animationend', () => {
+                confetti.remove();
+            });
+        }
+    }
+
     rsvpOptions.forEach(option => {
         option.addEventListener('click', () => {
             rsvpOptions.forEach(opt => opt.classList.remove('selected'));
@@ -74,29 +146,143 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     goingOption.addEventListener('click', () => {
-        rsvpForm.classList.remove('hidden');
+        showEmojiPopup('🎉', goingOption);
+        triggerConfetti();
+        showForm('going');
     });
 
     maybeOption.addEventListener('click', () => {
-        setTimeout(() => {
-            alert('We hope to see you there!');
-            closeModal();
-        }, 300);
+        showEmojiPopup('🤔', maybeOption);
+        showForm('maybe');
     });
 
     notGoingOption.addEventListener('click', () => {
-        setTimeout(() => {
-            alert('Sorry you can\'t make it!');
-            closeModal();
-        }, 300);
+        showEmojiPopup('😢', notGoingOption);
+        showForm('not-going');
     });
+
+    confirmYesBtn.addEventListener('click', () => {
+        showForm(currentSelection);
+    });
+
+    confirmNoBtn.addEventListener('click', () => {
+        rsvpOptions.forEach(opt => opt.classList.remove('selected'));
+        confirmationBox.classList.add('hidden');
+    });
+
+    const successMessageDiv = document.getElementById('success-message');
+    const successText = document.getElementById('success-text');
 
     rsvpForm.addEventListener('submit', (event) => {
         event.preventDefault();
+        
+        // 1. Prepare Data
+        const form = event.target;
+        const formData = new FormData(form);
         const name = document.getElementById('name').value;
-        alert(`Thanks for RSVPing, ${name}! We've received your details.`);
-        closeModal();
-        rsvpForm.querySelector('form').reset();
+        const messageText = document.getElementById('message').value;
+        
+        // Add the RSVP status to the hidden field
+        const statusInput = document.getElementById('rsvp-status');
+        statusInput.value = currentSelection;
+        formData.set('rsvp-status', currentSelection);
+        
+        // 2. Submit to Netlify (AJAX)
+        fetch('/', {
+            method: 'POST',
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams(formData).toString()
+        })
+        .then(() => {
+            // 3. Handle Success
+            let displayMessage = '';
+            
+            if (currentSelection === 'going') {
+                displayMessage = `Thanks for RSVPing, ${name}! We've saved your spot.`;
+            } else if (currentSelection === 'maybe') {
+                displayMessage = `No worries, ${name}! We'll check in later.`;
+            } else {
+                displayMessage = `We'll miss you, ${name}! Thanks for letting us know.`;
+            }
+            
+            if (messageText.trim()) {
+                displayMessage += " (And thanks for the sweet note! 💌)";
+            }
+            
+            // Hide form, show success
+            rsvpForm.classList.add('hidden');
+            successMessageDiv.classList.remove('hidden');
+            successText.textContent = displayMessage;
+            
+            // 4. Auto-Close
+            setTimeout(() => {
+                closeModal();
+                // Reset state after close animation (approx)
+                setTimeout(() => {
+                    successMessageDiv.classList.add('hidden');
+                    form.reset();
+                }, 300);
+            }, 3000); // 3 seconds delay
+        })
+        .catch((error) => {
+            alert('Oops! Something went wrong. Please try again.');
+            console.error('Submission error:', error);
+        });
+    });
+
+    const calendarBtn = document.getElementById('calendar-btn');
+    const copyBtn = document.getElementById('copy-address');
+
+    copyBtn.addEventListener('click', () => {
+        const address = "4200 Cheeney St., Santa Clara, CA, 95054";
+        const copyIcon = copyBtn.querySelector('.copy-icon');
+        const checkIcon = copyBtn.querySelector('.check-icon');
+
+        navigator.clipboard.writeText(address).then(() => {
+            copyIcon.classList.add('hidden');
+            checkIcon.classList.remove('hidden');
+            copyBtn.classList.add('copied');
+            
+            setTimeout(() => {
+                copyIcon.classList.remove('hidden');
+                checkIcon.classList.add('hidden');
+                copyBtn.classList.remove('copied');
+            }, 2000);
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+        });
+    });
+
+    calendarBtn.addEventListener('click', () => {
+        const event = {
+            title: 'Baby Shower for Baby Liba',
+            start: '20260221T130000',
+            end: '20260221T160000',
+            location: '4200 Cheeney St, Santa Clara, CA, 95054',
+            description: 'Join us to celebrate the upcoming arrival of Baby Liba!'
+        };
+
+        const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Baby Shower Invitation//EN
+BEGIN:VEVENT
+UID:${Date.now()}@babyshower.com
+DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z
+DTSTART:${event.start}
+DTEND:${event.end}
+SUMMARY:${event.title}
+LOCATION:${event.location}
+DESCRIPTION:${event.description}
+END:VEVENT
+END:VCALENDAR`;
+
+        const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.setAttribute('download', 'Baby_Liba_Shower.ics');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     });
 
     // Parallax effect on mouse move
