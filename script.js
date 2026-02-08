@@ -161,15 +161,6 @@ document.addEventListener('DOMContentLoaded', () => {
         showForm('not-going');
     });
 
-    confirmYesBtn.addEventListener('click', () => {
-        showForm(currentSelection);
-    });
-
-    confirmNoBtn.addEventListener('click', () => {
-        rsvpOptions.forEach(opt => opt.classList.remove('selected'));
-        confirmationBox.classList.add('hidden');
-    });
-
     const successMessageDiv = document.getElementById('success-message');
     const successText = document.getElementById('success-text');
 

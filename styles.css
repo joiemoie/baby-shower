@@ -15,8 +15,8 @@ html, body {
 
 body {
     font-family: 'Quicksand', sans-serif;
-    background-color: #87CEEB; /* Fallback color */
-    background-image: linear-gradient(to bottom, #87CEEB, #B3E5FC); /* More vibrant blue end */
+    background-color: #A2D9F5; /* Fallback color */
+    background-image: linear-gradient(to bottom, #A2D9F5, #D4EFFC); /* Softer, airier blue */
     background-size: 100% 400%; /* Allows scrolling/animation of gradient */
     background-attachment: scroll; /* Default, safer for mobile */
     display: flex;
@@ -92,7 +92,7 @@ body {
         0 1px 2px rgba(0,0,0,0.05), 
         0 8px 20px rgba(0,0,0,0.1), 
         0 25px 50px rgba(0,0,0,0.15); /* Softer, more modern shadow */
-    padding: 60px 40px;
+    padding: 40px 30px;
     text-align: center;
     max-width: 550px;
     width: 100%;
@@ -122,8 +122,8 @@ body {
 
 h1 {
     font-family: 'Fredoka One', cursive;
-    font-size: 3.2em;
-    margin-bottom: 15px;
+    font-size: 2.8em;
+    margin-bottom: 10px;
     text-transform: uppercase;
     
     /* Dual Layer Shimmer: Base Animation + Interactive Spotlight */
@@ -159,19 +159,19 @@ h1 {
 }
 
 .intro-text {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     color: #9b622c; /* Updated to bronze */
     font-family: 'Quicksand', sans-serif;
     font-weight: 700;
 }
 
 .bear-container {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     animation: float 3s ease-in-out infinite;
 }
 
 .bear {
-    width: 220px;
+    width: 180px;
     transition: transform 0.2s ease-out;
     filter: sepia(0.2); /* Slight vintage warmth */
 }
@@ -197,7 +197,7 @@ h3 {
 }
 
 .details {
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     color: #9b622c; /* Updated to bronze */
 }
 
@@ -223,20 +223,22 @@ h3 {
 }
 
 .copy-btn {
-    background: #f0ede4;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 2px 6px;
+    background: #fdfbf7;
+    border: 1px solid #e6dcc0;
+    border-radius: 8px; /* Softer square */
+    padding: 6px;
     cursor: pointer;
-    font-size: 0.9em;
-    transition: all 0.2s;
+    transition: all 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #8d5524; /* Bear brown */
 }
 
 .copy-btn svg {
     display: block;
+    width: 18px;
+    height: 18px;
 }
 
 .copy-btn .hidden {
@@ -244,38 +246,41 @@ h3 {
 }
 
 .copy-btn:hover {
-    background: #e6dcc0;
-    transform: scale(1.1);
+    background: #faeec7;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .copy-btn.copied {
-    background: #d4af37;
+    background: #81c784; /* Soft green */
     color: white;
-    border-color: #b38728;
+    border-color: #81c784;
 }
 
 .calendar-btn {
-    background-color: transparent;
-    color: #7a4c20;
-    border: 2px solid #7a4c20;
+    background-color: #ffffff;
+    color: #8d5524; /* Bear brown */
+    border: 2px solid #e6c288; /* Honey border */
     border-radius: 50px;
-    padding: 10px 25px;
-    font-size: 1em;
-    font-weight: bold;
+    padding: 10px 24px;
+    font-size: 0.95em;
+    font-weight: 700;
     cursor: pointer;
     transition: all 0.2s ease;
-    margin-top: 15px;
+    margin-top: 10px;
     display: inline-block;
     margin-left: 5px;
     margin-right: 5px;
     font-family: 'Quicksand', sans-serif;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
 .calendar-btn:hover {
-    background-color: #7a4c20;
-    color: #fff;
+    background-color: #fff8e1; /* Very light honey */
+    color: #6d411b;
+    border-color: #d4af37;
     transform: translateY(-2px);
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .calendar-btn:active {
@@ -283,24 +288,26 @@ h3 {
 }
 
 #rsvp-btn {
-    background: linear-gradient(to bottom, #d4af37, #b38728);
-    color: #fff;
+    background: linear-gradient(135deg, #fce38a 0%, #f38181 100%); /* Sunset/Peach gradient? No, let's stick to Honey */
+    background: linear-gradient(to bottom, #f7d775, #e0a943); /* Softer Honey Gradient */
+    color: #5d3a1a; /* Dark brown text for contrast */
     border: none;
-    border-radius: 50px; /* Pill shape */
-    padding: 16px 40px;
+    border-radius: 50px;
+    padding: 14px 40px;
     font-size: 1.1em;
-    font-weight: bold;
+    font-weight: 800;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 6px 15px rgba(224, 169, 67, 0.4);
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
+    text-shadow: 0 1px 1px rgba(255,255,255,0.3);
 }
 
 #rsvp-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-    background: linear-gradient(to bottom, #deb841, #bf902b);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(224, 169, 67, 0.6);
+    background: linear-gradient(to bottom, #ffe082, #e6b04a);
 }
 
 .modal {
@@ -399,8 +406,10 @@ h3 {
 }
 
 .option.selected {
-    background-color: #faeec7;
-    border: 2px solid #d4af37;
+    background-color: #fff8e1; /* Very light honey/cream */
+    border: 3px solid #f7d775; /* Soft honey border */
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(224, 169, 67, 0.2);
 }
 
 .option span {
@@ -433,47 +442,52 @@ h3 {
 
 #rsvp-form input,
 #rsvp-form textarea {
-    width: 90%;
-    padding: 12px;
-    margin-top: 8px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
+    width: 100%; /* Ensure full width */
+    max-width: 100%;
+    padding: 14px 16px; /* More breathing room */
+    margin-top: 10px;
+    border-radius: 12px; /* Softer corners */
+    border: 2px solid #e6dcc0; /* Soft border */
+    background-color: #fffdf9; /* Warm cream */
     font-family: 'Quicksand', sans-serif;
-    font-size: 1em;
+    font-size: 1.05em;
+    color: #5d3a1a; /* Dark bear brown */
+    transition: all 0.2s ease;
 }
 
 #rsvp-form textarea {
     resize: vertical;
-    min-height: 80px;
+    min-height: 100px;
 }
 
 #rsvp-form input:focus,
 #rsvp-form textarea:focus {
     outline: none;
-    border-color: #9b622c;
-    box-shadow: 0 0 5px rgba(155, 98, 44, 0.3);
+    border-color: #e0a943; /* Honey focus */
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(224, 169, 67, 0.15); /* Soft glow */
 }
 
 #rsvp-form button {
-    margin-top: 25px;
-    background: linear-gradient(to bottom, #d4af37, #b38728);
-    color: white;
+    margin-top: 30px;
+    background: linear-gradient(to bottom, #f7d775, #e0a943);
+    color: #5d3a1a;
     border: none;
     border-radius: 50px;
-    padding: 16px 40px;
-    font-size: 1.1em;
-    font-weight: bold;
+    padding: 16px 50px;
+    font-size: 1.2em;
+    font-weight: 800;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 6px 15px rgba(224, 169, 67, 0.4);
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
 #rsvp-form button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-    background: linear-gradient(to bottom, #deb841, #bf902b);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(224, 169, 67, 0.6);
+    background: linear-gradient(to bottom, #ffe082, #e6b04a);
 }
 
 /* Sun Styles */
@@ -603,21 +617,23 @@ h3 {
 
 @media (max-width: 600px) {
     .invitation {
-        padding: 20px;
+        padding: 20px 15px;
     }
 
     h1 {
-        font-size: 2.2em;
+        font-size: 2em;
+        margin-bottom: 10px;
     }
 
     .bear {
-        width: 120px;
+        width: 100px;
     }
 
     .rsvp-options {
         flex-direction: row;
         justify-content: space-between;
         gap: 10px;
+        margin: 20px 0;
     }
 
     .option {
