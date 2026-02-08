@@ -145,7 +145,7 @@ body {
 
 h1 {
     font-family: 'Fredoka One', cursive;
-    font-size: 3.5em; /* Slightly larger for impact */
+    font-size: 3.5em; /* Restored to original impact size */
     margin-bottom: 10px;
     margin-top: 0;
     text-transform: uppercase;
@@ -196,7 +196,7 @@ h1 {
 }
 
 .bear {
-    width: 280px; /* Larger bear */
+    width: 280px; /* Restored to original size */
     max-width: 100%;
     transition: transform 0.2s ease-out;
     filter: sepia(0.2); /* Slight vintage warmth */
@@ -238,14 +238,15 @@ h3 {
 
 .address-container {
     display: flex;
-    align-items: center;
-    justify-content: flex-start; /* Left align */
-    gap: 8px;
+    align-items: flex-start; /* Align button with the top line of text */
+    justify-content: flex-start;
+    gap: 12px;
     margin: 8px 0 20px 0;
 }
 
 .address-container p {
     margin: 0;
+    text-align: left;
 }
 
 .action-buttons {
@@ -448,7 +449,7 @@ h3 {
 }
 
 .option span {
-    font-size: 3.5em;
+    font-size: 2.2em; /* Reduced from 3.5em for a more refined look */
     display: block;
     margin-bottom: 10px;
     transition: transform 0.05s;
@@ -462,45 +463,55 @@ h3 {
     display: none;
 }
 
+#rsvp-form h3 {
+    font-family: 'Quicksand', sans-serif;
+    color: #8d5524; /* Bear brown */
+    font-weight: 600; /* Semi-bold but not heavy */
+    font-size: 1.4em;
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+
 #rsvp-form form {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
+    align-items: stretch; /* Align to stretch for left-aligned content */
+    margin-top: 10px;
 }
 
-#rsvp-form label {
-    margin-top: 15px;
-    font-size: 1.1em;
-    color: #555;
+#rsvp-form input::placeholder,
+#rsvp-form textarea::placeholder {
+    color: #888;
+    opacity: 0.8;
 }
 
 #rsvp-form input,
 #rsvp-form textarea {
-    width: 100%; /* Ensure full width */
-    max-width: 100%;
-    padding: 14px 16px; /* More breathing room */
-    margin-top: 10px;
-    border-radius: 12px; /* Softer corners */
-    border: 2px solid #e6dcc0; /* Soft border */
-    background-color: #fffdf9; /* Warm cream */
+    width: 100%;
+    padding: 10px 0;
+    margin-top: 15px;
+    border-radius: 0;
+    border: none;
+    border-bottom: 2px solid #e6dcc0;
+    background-color: transparent;
     font-family: 'Quicksand', sans-serif;
-    font-size: 1.05em;
-    color: #5d3a1a; /* Dark bear brown */
+    font-size: 1.1em;
+    color: #5d3a1a;
     transition: all 0.2s ease;
+    text-align: left;
+    height: 44px; /* Fixed height for consistency */
+    line-height: 24px; /* Ensure text sits properly */
 }
 
 #rsvp-form textarea {
-    resize: vertical;
-    min-height: 100px;
+    resize: none; /* Disable resizing to keep it clean like a line */
 }
 
 #rsvp-form input:focus,
 #rsvp-form textarea:focus {
     outline: none;
     border-color: #e0a943; /* Honey focus */
-    background-color: #ffffff;
-    box-shadow: 0 0 0 4px rgba(224, 169, 67, 0.15); /* Soft glow */
+    box-shadow: none; /* Removed the bubble glow */
 }
 
 #rsvp-form button {

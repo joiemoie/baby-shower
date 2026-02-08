@@ -77,15 +77,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const attendeesInput = document.getElementById('attendees');
 
         if (selection === 'going') {
-            formTitle.textContent = "So happy you can make it!";
+            formTitle.textContent = "Wonderful! Can't wait to see you.";
             extraFields.classList.remove('hidden');
             attendeesInput.required = true;
         } else if (selection === 'maybe') {
-            formTitle.textContent = "We hope you can make it!";
+            formTitle.textContent = "Fingers crossed you can join us!";
             extraFields.classList.add('hidden');
             attendeesInput.required = false;
         } else {
-            formTitle.textContent = "We will miss you!";
+            formTitle.textContent = "You will be missed!";
             extraFields.classList.add('hidden');
             attendeesInput.required = false;
         }
@@ -173,12 +173,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const name = document.getElementById('name').value;
         const messageText = document.getElementById('message').value;
         
-        // Add the RSVP status to the hidden field
+        // Update status in both DOM and FormData
         const statusInput = document.getElementById('rsvp-status');
         statusInput.value = currentSelection;
         formData.set('rsvp-status', currentSelection);
         
         // 2. Submit to Netlify (AJAX)
+        fetch('/', {
+            method: 'POST',
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams(formData).toString()
+        })
         fetch('/', {
             method: 'POST',
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
