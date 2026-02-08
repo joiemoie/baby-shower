@@ -102,8 +102,31 @@ document.addEventListener('DOMContentLoaded', () => {
     // Parallax effect on mouse move
     const invitation = document.querySelector('.invitation');
     
-    document.addEventListener('mousemove', (e) => {
-        const { clientX, clientY } = e;
+    function handleMove(clientX, clientY) {
+        const isMobile = window.matchMedia("(max-width: 768px)").matches;
+        
+        // Sun Eyes Tracking (Always active)
+        const pupils = document.querySelectorAll('.pupil');
+        pupils.forEach((pupil) => {
+            const eye = pupil.parentElement;
+            const eyeRect = eye.getBoundingClientRect();
+            const eyeCenterX = eyeRect.left + eyeRect.width / 2;
+            const eyeCenterY = eyeRect.top + eyeRect.height / 2;
+
+            const angle = Math.atan2(clientY - eyeCenterY, clientX - eyeCenterX);
+            const maxDistance = eyeRect.width / 4;
+            // Calculate distance but clamp it to keep pupil inside eye
+            const rawDistance = Math.hypot(clientX - eyeCenterX, clientY - eyeCenterY);
+            const distance = Math.min(maxDistance, rawDistance);
+            
+            const pupilX = Math.cos(angle) * distance;
+            const pupilY = Math.sin(angle) * distance;
+            
+            pupil.style.transform = `translate(calc(-50% + ${pupilX}px), calc(-50% + ${pupilY}px))`;
+        });
+
+        if (isMobile) return;
+
         const centerX = window.innerWidth / 2;
         const centerY = window.innerHeight / 2;
         
@@ -142,25 +165,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const cloudsXOffset = -xNorm * cloudsSpeed;
         const cloudsYOffset = -yNorm * cloudsSpeed;
         clouds.style.transform = `translateX(${cloudsXOffset}px) translateY(${cloudsYOffset}px)`;
+    }
 
-        // Sun Eyes Tracking
-        const pupils = document.querySelectorAll('.pupil');
-        pupils.forEach((pupil) => {
-            const eye = pupil.parentElement;
-            const eyeRect = eye.getBoundingClientRect();
-            const eyeCenterX = eyeRect.left + eyeRect.width / 2;
-            const eyeCenterY = eyeRect.top + eyeRect.height / 2;
-
-            const angle = Math.atan2(clientY - eyeCenterY, clientX - eyeCenterX);
-            const maxDistance = eyeRect.width / 4;
-            // Calculate distance but clamp it to keep pupil inside eye
-            const rawDistance = Math.hypot(clientX - eyeCenterX, clientY - eyeCenterY);
-            const distance = Math.min(maxDistance, rawDistance);
-            
-            const pupilX = Math.cos(angle) * distance;
-            const pupilY = Math.sin(angle) * distance;
-            
-            pupil.style.transform = `translate(calc(-50% + ${pupilX}px), calc(-50% + ${pupilY}px))`;
-        });
+    document.addEventListener('mousemove', (e) => {
+        handleMove(e.clientX, e.clientY);
     });
+
+    document.addEventListener('touchmove', (e) => {
+        // Prevent scrolling while interacting if necessary, but might block page scroll
+        // e.preventDefault(); 
+        const touch = e.touches[0];
+        handleMove(touch.clientX, touch.clientY);
+    }, { passive: true });
+
+    document.addEventListener('touchstart', (e) => {
+        const touch = e.touches[0];
+        handleMove(touch.clientX, touch.clientY);
+    }, { passive: true });
 });
