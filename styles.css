@@ -1,18 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Montserrat:wght@700&family=Quicksand:wght@400;700&family=Roboto:wght@300;700&display=swap');
 
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    touch-action: manipulation; /* Improves mobile tap responsiveness */
+}
+
 body {
     font-family: 'Quicksand', sans-serif;
-    background: linear-gradient(to bottom, #87CEEB, #B3E5FC); /* More vibrant blue end */
+    background-color: #87CEEB; /* Fallback color */
+    background-image: linear-gradient(to bottom, #87CEEB, #B3E5FC); /* More vibrant blue end */
     background-size: 100% 400%; /* Allows scrolling/animation of gradient */
-    margin: 0;
-    padding: 20px;
+    background-attachment: scroll; /* Default, safer for mobile */
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    overflow: hidden;
     position: relative;
     animation: sky-shift 60s ease-in-out infinite alternate;
+    padding: 15px; /* Slight padding for mobile breathing room */
 }
 
 @keyframes sky-shift {
@@ -31,6 +44,7 @@ body {
     width: 100%;
     height: 100%;
     z-index: -1;
+    overflow: hidden;
 }
 
 .cloud {
@@ -229,7 +243,9 @@ h3 {
     background-color: rgba(0,0,0,0.5); /* Darker overlay */
     justify-content: center;
     align-items: center;
-    animation: fadeIn 0.2s ease-out;
+    animation: fadeIn 0.3s ease-out both; /* 'both' prevents initial flash */
+    will-change: opacity;
+    -webkit-overflow-scrolling: touch;
 }
 
 .modal.hidden {
@@ -248,7 +264,8 @@ h3 {
     text-align: center;
     position: relative;
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    animation: scaleUp 0.15s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    animation: scaleUp 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) both; /* 'both' for smoothness */
+    will-change: transform, opacity;
 }
 
 @keyframes fadeIn {
@@ -264,19 +281,29 @@ h3 {
 .close-btn {
     color: #aaa;
     position: absolute;
-    top: 15px;
-    right: 20px;
+    top: 10px; /* Adjusted for larger touch target */
+    right: 15px;
     font-size: 35px;
     font-weight: bold;
     transition: transform 0.2s, color 0.2s;
+    padding: 10px; /* Increase touch area */
+    line-height: 1;
+    cursor: pointer;
+    z-index: 10; /* Ensure it's on top */
 }
 
-.close-btn:hover,
-.close-btn:focus {
-    color: #333;
-    text-decoration: none;
-    cursor: pointer;
-    transform: rotate(90deg);
+/* Only rotate on devices that support hover */
+@media (hover: hover) {
+    .close-btn:hover,
+    .close-btn:focus {
+        color: #333;
+        text-decoration: none;
+        transform: rotate(90deg);
+    }
+}
+
+.close-btn:active {
+    color: #333; /* Visual feedback on tap without rotation */
 }
 
 .rsvp-options {
@@ -509,12 +536,24 @@ h3 {
     }
 
     .rsvp-options {
-        flex-direction: column;
-        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 10px;
     }
 
     .option {
-        margin-bottom: 20px;
+        width: 30%;
+        padding: 10px 5px;
+        margin-bottom: 0;
+    }
+
+    .option span {
+        font-size: 2.2em;
+    }
+
+    .option p {
+        font-size: 0.9em;
+        margin: 5px 0 0 0;
     }
 
     .sun-container {
