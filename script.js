@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const copyIcon = copyBtn.querySelector('.copy-icon');
         const checkIcon = copyBtn.querySelector('.check-icon');
 
-        navigator.clipboard.writeText(address).then(() => {
+        function showSuccess() {
             copyIcon.classList.add('hidden');
             checkIcon.classList.remove('hidden');
             copyBtn.classList.add('copied');
@@ -239,9 +239,45 @@ document.addEventListener('DOMContentLoaded', () => {
                 checkIcon.classList.add('hidden');
                 copyBtn.classList.remove('copied');
             }, 2000);
-        }).catch(err => {
-            console.error('Failed to copy: ', err);
-        });
+        }
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(address).then(showSuccess).catch(err => {
+                console.error('Failed to copy via Clipboard API: ', err);
+                fallbackCopy(address);
+            });
+        } else {
+            fallbackCopy(address);
+        }
+
+        function fallbackCopy(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            
+            // Ensure textarea is not visible but part of the DOM
+            textArea.style.position = "fixed";
+            textArea.style.left = "-9999px";
+            textArea.style.top = "0";
+            document.body.appendChild(textArea);
+            
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showSuccess();
+                } else {
+                    console.error('Fallback copy failed.');
+                    alert('Could not copy address automatically. Please copy it manually.');
+                }
+            } catch (err) {
+                console.error('Fallback copy error: ', err);
+                alert('Could not copy address automatically. Please copy it manually.');
+            }
+            
+            document.body.removeChild(textArea);
+        }
     });
 
     calendarBtn.addEventListener('click', () => {

@@ -94,7 +94,7 @@ body {
         0 25px 50px rgba(0,0,0,0.15); /* Softer, more modern shadow */
     padding: 40px 30px;
     text-align: center;
-    max-width: 550px;
+    max-width: 60vw;
     width: 100%;
     position: relative;
     z-index: 1;
@@ -103,6 +103,29 @@ body {
     
     /* 3D Transform setup */
     transform-style: preserve-3d;
+}
+
+.invitation-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    text-align: left;
+}
+
+.left-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.right-column {
+    flex: 0.8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Spotlight Reflection Overlay */
@@ -122,8 +145,9 @@ body {
 
 h1 {
     font-family: 'Fredoka One', cursive;
-    font-size: 2.8em;
+    font-size: 3.5em; /* Slightly larger for impact */
     margin-bottom: 10px;
+    margin-top: 0;
     text-transform: uppercase;
     
     /* Dual Layer Shimmer: Base Animation + Interactive Spotlight */
@@ -159,19 +183,21 @@ h1 {
 }
 
 .intro-text {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     color: #9b622c; /* Updated to bronze */
     font-family: 'Quicksand', sans-serif;
     font-weight: 700;
+    font-size: 1.2em;
 }
 
 .bear-container {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     animation: float 3s ease-in-out infinite;
 }
 
 .bear {
-    width: 180px;
+    width: 280px; /* Larger bear */
+    max-width: 100%;
     transition: transform 0.2s ease-out;
     filter: sepia(0.2); /* Slight vintage warmth */
 }
@@ -197,13 +223,13 @@ h3 {
 }
 
 .details {
-    margin-bottom: 30px;
+    margin-bottom: 0;
     color: #9b622c; /* Updated to bronze */
 }
 
 .details p {
     margin: 8px 0;
-    font-size: 1.2em;
+    font-size: 1.3em;
 }
 
 .details strong {
@@ -213,32 +239,41 @@ h3 {
 .address-container {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start; /* Left align */
     gap: 8px;
-    margin: 8px 0;
+    margin: 8px 0 20px 0;
 }
 
 .address-container p {
     margin: 0;
 }
 
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
 .copy-btn {
     background: #fdfbf7;
     border: 1px solid #e6dcc0;
     border-radius: 8px; /* Softer square */
-    padding: 6px;
+    padding: 8px; /* Slightly larger touch target */
     cursor: pointer;
     transition: all 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #8d5524; /* Bear brown */
+    min-width: 32px; /* Ensure minimum width */
+    min-height: 32px; /* Ensure minimum height */
 }
 
 .copy-btn svg {
     display: block;
-    width: 18px;
-    height: 18px;
+    width: 16px; /* Slightly smaller icon relative to button */
+    height: 16px;
+    flex-shrink: 0;
 }
 
 .copy-btn .hidden {
@@ -267,9 +302,9 @@ h3 {
     font-weight: 700;
     cursor: pointer;
     transition: all 0.2s ease;
-    margin-top: 10px;
+    margin-top: 0;
     display: inline-block;
-    margin-left: 5px;
+    margin-left: 0;
     margin-right: 5px;
     font-family: 'Quicksand', sans-serif;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
@@ -615,18 +650,78 @@ h3 {
 }
 
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     .invitation {
-        padding: 20px 15px;
+        padding: 25px 15px; /* Reduced padding */
+        max-width: 95%; /* Use more width */
+        background-color: rgba(255, 255, 255, 0.7); /* Adjusted translucency */
+        background-image: none; /* Remove texture overlay to ensure transparency */
+        backdrop-filter: blur(5px); /* Optional: add a slight blur for readability */
+        -webkit-backdrop-filter: blur(5px);
+    }
+
+    .invitation-content {
+        flex-direction: column; /* Title first, then bear */
+        gap: 10px; /* Reduced gap */
+        text-align: center;
+    }
+
+    .left-column, .right-column {
+        display: contents;
     }
 
     h1 {
-        font-size: 2em;
-        margin-bottom: 10px;
+        order: 1;
+        font-size: 2.1em; /* Reduced font size */
+        margin-bottom: 5px;
+    }
+
+    .intro-text {
+        order: 2;
+        margin-bottom: 10px; /* Reduced margin */
+        font-size: 1em;
+    }
+
+    .bear-container {
+        order: 3;
+        margin-bottom: 0; /* No margin below bear */
+    }
+
+    .details {
+        order: 4;
+        width: 100%;
+    }
+
+    .details p {
+        margin: 4px 0; /* Reduced margins */
+        font-size: 1.1em;
+    }
+
+    .address-container {
+        justify-content: center;
+        margin: 5px 0 10px 0;
+    }
+
+    .action-buttons {
+        justify-content: center;
+        margin-top: 5px;
+        gap: 5px;
     }
 
     .bear {
-        width: 100px;
+        width: 160px; /* Slightly smaller bear */
+    }
+    
+    #rsvp-btn {
+        order: 5;
+        width: 100%; /* Full width button on mobile */
+        padding: 14px; /* Reduced padding */
+        margin-top: 10px;
+    }
+
+    .calendar-btn {
+        padding: 8px 18px; /* Slightly smaller buttons */
+        font-size: 0.9em;
     }
 
     .rsvp-options {
@@ -635,22 +730,7 @@ h3 {
         gap: 10px;
         margin: 20px 0;
     }
-
-    .option {
-        width: 30%;
-        padding: 10px 5px;
-        margin-bottom: 0;
-    }
-
-    .option span {
-        font-size: 2.2em;
-    }
-
-    .option p {
-        font-size: 0.9em;
-        margin: 5px 0 0 0;
-    }
-
+    
     .sun-container {
         transform: scale(0.6);
         transform-origin: top right;

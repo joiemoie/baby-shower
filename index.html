@@ -35,25 +35,33 @@
     </div>
     <div class="invitation animate">
         <div class="reflection-overlay"></div>
-        <h1>Baby's on the way!</h1>
-        <p class="intro-text">Join us to celebrate the upcoming arrival of Baby Liba</p>
-        <div class="bear-container">
-            <img src="bear-balloons.png" alt="Bear with Balloons" class="bear">
-        </div>
-        <div class="details">
-            <p>February 21st, 2026</p>
-            <p>1:00 PM</p>
-            <div class="address-container">
-                <p><strong>📍</strong> 4200 Cheeney St., Santa Clara, CA, 95054</p>
-                <button id="copy-address" class="copy-btn" title="Copy Address">
-                    <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                    <svg class="check-icon hidden" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                </button>
+        <div class="invitation-content">
+            <div class="left-column">
+                <h1>Baby's on the way!</h1>
+                <p class="intro-text">Join us to celebrate the upcoming arrival of Baby Liba</p>
+                <div class="details">
+                    <p class="date">February 21st, 2026</p>
+                    <p class="time">1:00 PM</p>
+                    <div class="address-container">
+                        <p><strong>📍</strong> 4200 Cheeney St., Santa Clara, CA, 95054</p>
+                        <button id="copy-address" class="copy-btn" title="Copy Address">
+                            <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            <svg class="check-icon hidden" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        </button>
+                    </div>
+                    <div class="action-buttons">
+                        <button id="calendar-btn" class="calendar-btn">🗓️ Save to Calendar</button>
+                        <a href="https://my.babylist.com/baby-joie-3" target="_blank" id="registry-btn" class="calendar-btn" style="text-decoration: none; display: inline-block;">🎁 Baby Registry</a>
+                    </div>
+                </div>
             </div>
-            <button id="calendar-btn" class="calendar-btn">📅 Save to Calendar</button>
-            <a href="https://my.babylist.com/baby-joie-3" target="_blank" id="registry-btn" class="calendar-btn" style="text-decoration: none; display: inline-block;">🎁 Baby Registry</a>
+            <div class="right-column">
+                <div class="bear-container">
+                    <img src="bear-balloons.png" alt="Bear with Balloons" class="bear">
+                </div>
+                <button id="rsvp-btn">RSVP</button>
+            </div>
         </div>
-        <button id="rsvp-btn">RSVP</button>
     </div>
 
     <div id="rsvp-modal" class="modal">
@@ -84,8 +92,6 @@
                     <div id="extra-fields">
                         <label for="attendees">Number of Attendees:</label>
                         <input type="number" id="attendees" name="attendees" min="1">
-                        <label for="dietary">Dietary Restrictions:</label>
-                        <input type="text" id="dietary" name="dietary" placeholder="e.g. Vegetarian, Nut Allergy">
                     </div>
                     <label for="message">Message (Optional):</label>
                     <textarea id="message" name="message" rows="3" placeholder="Leave a note for the parents-to-be!"></textarea>
